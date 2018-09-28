@@ -1,0 +1,10 @@
+##### IDE
+## IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+*.idea
+
+##### Build
+target/*
