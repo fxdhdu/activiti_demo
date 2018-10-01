@@ -5,6 +5,7 @@
 *.ipr
 *.iws
 *.idea
+.src/main/resources/db.*
 
 ##### Build
 target/*

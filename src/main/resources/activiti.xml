@@ -5,16 +5,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="classpath:**.properties"/>
+    <!--扫描并部署流程-->
     <context:component-scan base-package="z.learn"/>
 
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">      <!-- ProcessEngine 有启动关闭的钩子 -->
         <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
     </bean>
+
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="databaseSchemaUpdate" value="true"/>
-        <property name="jobExecutorActivate" value="false"/>        <!-- JobExecutor是同步执行器，与AsyncExecutor不同时存在 -->
+        <property name="dataSource" ref="dataSource"/><!--数据源-->
+        <property name="transactionManager" ref="transactionManager"/><!--事务管理器-->
+        <property name="databaseSchemaUpdate" value="true"/><!--构建流程引擎时，执行检查，如果需要就执行更新。 如果表不存在，就创建。-->
+        <property name="jobExecutorActivate" value="false"/>        <!-- JobExecutor是同步执行器，与AsyncExecutor不同时存在。不想在流程引擎启动后自动激活JobExecutor -->
         <property name="asyncExecutorEnabled" value="true" />
         <property name="asyncExecutorActivate" value="true" />
     </bean>
@@ -26,8 +28,7 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 

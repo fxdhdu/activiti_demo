@@ -14,7 +14,7 @@ import java.util.UUID;
 @Component
 public class CreateFlow3 implements InitializingBean {
 
-    private String flowKey = "flow3";
+    public static String flowKey = "flow3";
 
     public void createAndDeploy(String keyName) {
         StartEvent start = new StartEvent();

@@ -13,41 +13,44 @@ import java.util.UUID;
 
 @Component
 public class CreateFlow1 implements InitializingBean {
-    private String flowKey = "flow1";
 
-    public void createAndDeploy(String keyName) {
-        StartEvent start = new StartEvent();
-        start.setId(getUniqueKey());
-        start.setName("start");
+            public static String flowKey = "flow1";
 
-        EndEvent end = new EndEvent();
-        end.setId(getUniqueKey());
-        end.setName("end");
+        public void createAndDeploy(String keyName) {
+        /*开始事件*/
+            StartEvent start = new StartEvent();
+            start.setId(getUniqueKey());
+            start.setName("start");
 
-        ServiceTask job = new ServiceTask();
-        job.setId(getUniqueKey());
-        job.setName("job");
-        job.setAsynchronous(true);
-        job.setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_EXPRESSION);
-        job.setImplementation("#{createFlow1.execute(execution)}");
+            EndEvent end = new EndEvent();
+            end.setId(getUniqueKey());
+            end.setName("end");
 
-        SequenceFlow startToJob = new SequenceFlow();
-        startToJob.setSourceRef(start.getId());
-        startToJob.setTargetRef(job.getId());
-        startToJob.setName("flow1");
+            ServiceTask job = new ServiceTask();
+            job.setId(getUniqueKey());
+            job.setName("job");
+            job.setAsynchronous(true);
+            job.setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_EXPRESSION);
+            job.setImplementation("#{createFlow1.execute(execution)}");
 
-        SequenceFlow jobToEnd = new SequenceFlow();
-        jobToEnd.setSourceRef(job.getId());
-        jobToEnd.setTargetRef(end.getId());
-        jobToEnd.setName("flow2");
+        /*SequenceFlow顺序流需要流程范围内唯一的id， 以及对起点与 终点元素的引用。*/
+            SequenceFlow startToJob = new SequenceFlow();
+            startToJob.setSourceRef(start.getId());
+            startToJob.setTargetRef(job.getId());
+            startToJob.setName("flow1");
 
-        Process process = new Process();
-        process.setId(keyName);
-        process.setName("first");
-        process.addFlowElement(start);
-        process.addFlowElement(startToJob);
-        process.addFlowElement(job);
-        process.addFlowElement(jobToEnd);
+            SequenceFlow jobToEnd = new SequenceFlow();
+            jobToEnd.setSourceRef(job.getId());
+            jobToEnd.setTargetRef(end.getId());
+            jobToEnd.setName("flow2");
+
+            Process process = new Process();
+            process.setId(keyName);
+            process.setName("first");
+            process.addFlowElement(start);
+            process.addFlowElement(startToJob);
+            process.addFlowElement(job);
+            process.addFlowElement(jobToEnd);
         process.addFlowElement(end);
 
         BpmnModel model = new BpmnModel();

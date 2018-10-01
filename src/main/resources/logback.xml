@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanperiod="60 seconds"> <!-- 60秒一次检测配置文件是否修改，若修改则重新加载 -->
+
+</configuration>

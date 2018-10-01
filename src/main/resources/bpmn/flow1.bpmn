@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="flow1" name="first" isExecutable="true">
+    <startEvent id="sid-664a4139-c065-4c49-bd4a-f866a9034047" name="start"></startEvent>
+    <sequenceFlow name="flow1" sourceRef="sid-664a4139-c065-4c49-bd4a-f866a9034047" targetRef="sid-ab11f654-342b-409f-a530-edcb784a741f"></sequenceFlow>
+    <serviceTask id="sid-ab11f654-342b-409f-a530-edcb784a741f" name="job" activiti:async="true" activiti:expression="#{createFlow1.execute(execution)}"></serviceTask>
+    <sequenceFlow name="flow2" sourceRef="sid-ab11f654-342b-409f-a530-edcb784a741f" targetRef="sid-7510a319-9acd-4217-a187-a8744f86d376"></sequenceFlow>
+    <endEvent id="sid-7510a319-9acd-4217-a187-a8744f86d376" name="end"></endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_flow1">
+    <bpmndi:BPMNPlane bpmnElement="flow1" id="BPMNPlane_flow1"></bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
